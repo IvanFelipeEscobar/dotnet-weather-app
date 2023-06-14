@@ -6,19 +6,25 @@
     <title>@ViewData["Title"] - Weather App</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Weather_App.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-            <div class="container">
-                    <h1>Weather App</h1>
-            </div>
-        
+        <div class="container">
+            <h1>Weather App</h1>
+        </div>
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+    </div>
+    <div class="column" id="today">
+        <!--today weather rendered here-->
+
+    </div>
+    <div class="row" id="forecastDisplay">
+        <!--5 day forecast rendered here-->
     </div>
 
     <footer class="border-top footer text-muted">
@@ -27,6 +33,7 @@
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
