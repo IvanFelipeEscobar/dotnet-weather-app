@@ -4,7 +4,7 @@
 // Write your JavaScript code.
 
 var APIkey = `cb8d3a328e6b7aa47d98d6e678c6df07`
-var selectedCity = ``
+var selectedCity=``
 var todayDate = moment().format(`L`)
 
 var savedCities = JSON.parse(localStorage.getItem(`city`)) || []
