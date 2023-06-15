@@ -14,17 +14,18 @@ init(savedCities)
 //search button
 $(`#citySubmit`).on(`click`, function () {
     var selectedCity = $("#city").val().trim()
+    if (selectedCity != ``) {
+        getWeatherToday(selectedCity)
+        getForecast(selectedCity)
 
-    getWeatherToday(selectedCity)
-    getForecast(selectedCity)
-
-    if (!savedCities.includes(selectedCity)) {
-        savedCities.push(selectedCity)//if city entered is not in savedcities array, it will be added to array
-        var cityArchiveEl = `     
+        if (!savedCities.includes(selectedCity)) {
+            savedCities.push(selectedCity)//if city entered is not in savedcities array, it will be added to array
+            var cityArchiveEl = `     
         <button type="button" id="savedCitySubmit" city-data="${selectedCity}">${selectedCity}</button>`
-        $(`#cityArchive`).append(cityArchiveEl)
+            $(`#cityArchive`).append(cityArchiveEl)
+        }
+        localStorage.setItem("city", JSON.stringify(savedCities))
     }
-    localStorage.setItem("city", JSON.stringify(savedCities))
 })
 //saved cities as buttons
 $(document).on("click", "#savedCitySubmit", function () {
@@ -52,15 +53,15 @@ function getWeatherToday(selectedCity) {
         console.log(weatherData)//using object retrieved from API render weather info onto page
         $(`#today`).empty()
         var todayEl = ` 
-        <div class="card">
+        <div class="card" style="max-width: 30rem;>
          <h3 class="card-header" id="selectedCityName">${weatherData.name} - ${todayDate} </h3>  
-         <ul class="card-body">
-         <li>Condition: ${weatherData.weather[0].description}</li>
-          <li><img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png" alt="${weatherData.weather[0].description}"></li>   
+         <ul class="card-body list">
+         <li><b>Condition: </b>${weatherData.weather[0].description}</li>
+          <li><b><img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png" alt="${weatherData.weather[0].description}"></li>   
           
-          <li>Temperature: ${weatherData.main.temp}°F</li>
-          <li>Humidity: ${weatherData.main.humidity}%</li>
-          <li>Wind Speed: ${weatherData.wind.speed} MPH</li>
+          <li><b>Temperature:</b> ${weatherData.main.temp}°F</li>
+          <li><b>Humidity: </b>${weatherData.main.humidity}%</li>
+          <li><b>Wind Speed:</b> ${weatherData.wind.speed} MPH</li>
 
          </ul>
         </div>`
@@ -84,14 +85,14 @@ function getForecast(selectedCity) {
         while (i < 40) { //5 day data is provided in 3 hr increments, 4th = noon, +8 is equal to a day.
             var forecastDay = moment.unix(forecastData.list[i].dt).format("MM/DD/YYYY")
             var forecastEl = `
-            <div class="card text-bg-primary mb-2" style="max-width: 12rem;">
-             <ul class="card-body">
+            <div class="card text-bg-primary m-2" style="max-width: 12rem;">
+             <ul class="card-body list">
               <li>${forecastDay}</li>
-              <li>Condition: ${forecastData.list[i].weather[0].description}</li>
+              <li><b>Condition:</b> ${forecastData.list[i].weather[0].description}</li>
               <li><img src="https://openweathermap.org/img/wn/${forecastData.list[i].weather[0].icon}@2x.png" alt="${forecastData.list[i].weather[0].description}"></li>            
-              <li>Temperature: ${forecastData.list[i].main.temp}°F</li>
-              <li>Humidity: ${forecastData.list[i].main.humidity}%</li>
-              <li>Wind Speed: ${forecastData.list[i].wind.speed} MPH</li> 
+              <li><b>Temperature:</b> ${forecastData.list[i].main.temp}°F</li>
+              <li><b>Humidity:</b> ${forecastData.list[i].main.humidity}%</li>
+              <li><b>Wind Speed:</b> ${forecastData.list[i].wind.speed} MPH</li> 
              </ul>
             </div>
             `
