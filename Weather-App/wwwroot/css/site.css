@@ -27,3 +27,6 @@ body {
     justify-content: center;
     align-items: center;
 }
+.list {
+    list-style: none;
+}
